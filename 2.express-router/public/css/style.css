@@ -1,0 +1,33 @@
+*{
+    margin: 0px;
+}
+.header{
+    background-color: #f3f3f3;
+    padding: 40px 20px;
+}
+.header ul li{
+    list-style-type: none;
+    display: inline-block;
+    margin-right: 15px;
+}
+.header a{
+    padding: 5px 25px;
+    background-color: #2596d8;
+    text-decoration: none;
+    color: #fff;
+    border-radius: 50px;
+}
+.form-control{
+    padding: 10px;
+    width: 100%;
+}
+.button-primary{
+    background-color: #2596d8;
+    padding: 10px 15px;
+    color: #fff;
+    border-radius: 50px;
+    margin-top: 10px;
+}
+.main{
+    padding: 50px;
+}
