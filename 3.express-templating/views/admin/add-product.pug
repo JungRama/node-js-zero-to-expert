@@ -1,0 +1,5 @@
+extends ../layouts/main-layout.pug
+block content
+    form(action="/admin/add-product" method="POST")
+        input.form-control(type="text" name="product" placeholder="Product Name")
+        button.button-primary(type="submit") Submit
