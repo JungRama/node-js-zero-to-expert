@@ -1,15 +1,18 @@
 const path          = require('path')
 const express       = require('express')
 const bodyParser    = require('body-parser')
-const expressHbs    = require('express-handlebars') // Add express handlebars
+// const expressHbs    = require('express-handlebars') // Add express handlebars
 const routesAdmin   = require('./routes/admin')
 const routesFront   = require('./routes/frontend')
 
 const app           = express()
 
+// SET TEMPLATE FOR EJS
+app.set('view engine', 'ejs')
+
 // SET TEMPLATE ENGINE USING HANDLEBARS
-app.engine('hbs', expressHbs())
-app.set('view engine', 'hbs')
+// app.engine('hbs', expressHbs())
+// app.set('view engine', 'hbs')
 
 // SET TEMPLATE ENGINE USING PUG
 // app.set('view engine', 'pug')

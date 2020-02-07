@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
         rName: 'frontShop',
         products: admin.products,
         title: 'Shop',
-        hasProducts: admin.products.length > 0 ? true : false
+        hasProducts: admin.products.length > 0 ? true : false // Needed for handlebars template
     })
     console.log(admin.products);
 })
