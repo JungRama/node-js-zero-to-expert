@@ -1,13 +1,21 @@
 const path          = require('path')
 const express       = require('express')
+const bodyParser    = require('body-parser')
+const expressHbs    = require('express-handlebars') // Add express handlebars
 const routesAdmin   = require('./routes/admin')
 const routesFront   = require('./routes/frontend')
-const bodyParser    = require('body-parser')
 
 const app           = express()
 
-app.set('view engine', 'pug')
-app.set('views', 'views') // Template Loaction
+// SET TEMPLATE ENGINE USING HANDLEBARS
+app.engine('hbs', expressHbs())
+app.set('view engine', 'hbs')
+
+// SET TEMPLATE ENGINE USING PUG
+// app.set('view engine', 'pug')
+
+// SET TEMPLATE FOLDER TO VIEWS
+app.set('views', 'views') 
 
 app.use(bodyParser.urlencoded({extended : false}))
 app.use(express.static(path.join(__dirname, 'public')))

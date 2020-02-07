@@ -2,6 +2,7 @@ extends ../layouts/main-layout.pug
 block content
     if products.length > 0
         p List of Product
+        ul
             each product in products
                 li #{product.title}
     else
