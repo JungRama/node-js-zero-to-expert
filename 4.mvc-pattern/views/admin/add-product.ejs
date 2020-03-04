@@ -1,8 +1,9 @@
 <%- include ('../includes/header.ejs') %>
     <div class="main">
         <form action="/admin/add-product" method="POST">
-            <input class="form-control" type="text" name="product" placeholder="Product Name" />
+            <input class="form-control" type="text" name="product" placeholder="Product Name" style="margin-bottom: 10px;" />
+            <input class="form-control" type="text" name="price" placeholder="Price" />
             <button class="button-primary" type="submit">Submit</button>
         </form>
     </div>
-<%- include ('../includes/footer.ejs') %> 
+<%- include ('../includes/footer.ejs') %>

@@ -8,19 +8,19 @@ exports.indexAddProduct = (req, res, next) => {
 }
 
 exports.postAddProduct = (req, res, next) => {
-    const product = new Product(req.body.product)
+    const product = new Product(req.body.product, req.body.price)
     product.save()
     
     res.redirect('/')
 }
 
 exports.getProduct = (req, res, next) => {
-    const products = Product.fetchAll()
-
-    res.render('frontend/index', {
-        rName: 'frontShop',
-        products: products,
-        title: 'Shop',
-        hasProducts: products.length > 0 ? true : false // Needed for handlebars template
+    Product.fetchAll(productData => {
+        res.render('frontend/index', {
+            rName: 'frontShop',
+            products: productData,
+            title: 'Shop',
+            hasProducts: productData.length > 0 ? true : false // Needed for handlebars template
+        })
     })
 }
