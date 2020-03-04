@@ -1,0 +1,41 @@
+*{
+    font-family: 'poppins';
+    margin: 0px;
+}
+.header{
+    background-color: #f3f3f3;
+    padding: 40px 20px;
+}
+.header ul{
+    padding-left: 0px;
+}
+.header ul li{
+    list-style-type: none;
+    display: inline-block;
+    margin-right: 5px;
+}
+.header a{
+    padding: 5px 25px;
+    background-color: #f3f3f3;
+    text-decoration: none;
+    color: #2596d8;
+}
+.header a.active{
+    background-color: #2596d8;
+    color: #fff;
+}
+.form-control{
+    padding: 10px;
+    width: 100%;
+}
+.button-primary{
+    background-color: #2596d8;
+    padding: 10px 35px;
+    box-shadow: none;
+    border: 0px;
+    color: #fff;
+    margin-top: 10px;
+}
+.main{
+    padding: 20px;
+}

@@ -1,11 +1,27 @@
 const path          = require('path')
 const express       = require('express')
 const bodyParser    = require('body-parser')
-// const expressHbs    = require('express-handlebars') // Add express handlebars
+var sassMiddleware  = require('node-sass-middleware');
+
 const routesAdmin   = require('./routes/admin')
 const routesFront   = require('./routes/frontend')
 
 const app           = express()
+
+// USING SASS
+app.use(sassMiddleware({
+    src: __dirname + '/public', //where the sass files are 
+    dest: __dirname + '/public', //where css should go
+    debug: true
+    // src: __dirname,
+    // dest: path.join(__dirname, 'public'),
+    // debug: true,
+    // outputStyle: 'compressed',
+    // prefix:  '/prefix'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
+}));
+// app.use('/public', express.static(path.join(__dirname, 'public')));
+// console.log(__dirname);
+
 
 // SET TEMPLATE FOR EJS
 app.set('view engine', 'ejs')
@@ -16,7 +32,9 @@ app.set('views', 'views')
 app.use(bodyParser.urlencoded({extended : false}))
 app.use(express.static(path.join(__dirname, 'public')))
 
+// ROUTER FOR FRONT
 app.use(routesFront)
+// ROUTER FOR ADMIN
 app.use('/admin', routesAdmin.router)
 
 app.use((req, res, next) => {
