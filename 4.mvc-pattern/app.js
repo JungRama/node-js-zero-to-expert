@@ -13,15 +13,7 @@ app.use(sassMiddleware({
     src: __dirname + '/public', //where the sass files are 
     dest: __dirname + '/public', //where css should go
     debug: true
-    // src: __dirname,
-    // dest: path.join(__dirname, 'public'),
-    // debug: true,
-    // outputStyle: 'compressed',
-    // prefix:  '/prefix'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/>
 }));
-// app.use('/public', express.static(path.join(__dirname, 'public')));
-// console.log(__dirname);
-
 
 // SET TEMPLATE FOR EJS
 app.set('view engine', 'ejs')

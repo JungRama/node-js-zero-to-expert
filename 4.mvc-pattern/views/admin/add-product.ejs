@@ -1,9 +1,33 @@
 <%- include ('../includes/header.ejs') %>
-    <div class="main">
+    <div class="container">
         <form action="/admin/add-product" method="POST">
-            <input class="form-control" type="text" name="product" placeholder="Product Name" style="margin-bottom: 10px;" />
-            <input class="form-control" type="text" name="price" placeholder="Price" />
-            <button class="button-primary" type="submit">Submit</button>
+
+            <div class="field">
+                <label class="label">Product Name</label>
+                <div class="control">
+                    <input class="input" type="text" name="product" placeholder="eg. Macbook Pro 2019" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Price</label>
+
+                <div class="field">
+                    <p class="control has-icons-left has-icons-right">
+                        <input class="input" name="price" type="number" placeholder="eg. 100000" required>
+                        <span class="icon is-small is-left">
+                            RP
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <button class="button is-success" type="submit">
+                <span>Save</span>
+                <span class="icon is-small">
+                    <i class="fas fa-check"></i>
+                </span>
+            </button>
         </form>
     </div>
 <%- include ('../includes/footer.ejs') %>
