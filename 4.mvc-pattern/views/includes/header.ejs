@@ -33,10 +33,19 @@
                     href="/">Shop</a>
                     <a class="navbar-item <%= rName == 'frontCart' ? 'active' : '' %>" 
                     href="/cart">Cart</a>
+                    
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            More
+                        </a>
 
-
-                    <a class="navbar-item <%= rName == 'adminAddProduct' ? 'active' : '' %>" 
-                    href="/admin/add-product">Add Product</a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item <%= rName == 'adminAddProduct' ? 'active' : '' %>" 
+                                href="/admin/add-product">Add Product</a>
+                            <a class="navbar-item <%= rName == 'adminListProduct' ? 'active' : '' %>" 
+                                href="/admin/list-product">List Product</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="navbar-end">

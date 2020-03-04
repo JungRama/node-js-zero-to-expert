@@ -1,25 +1,25 @@
-const Product = require('../models/product')
+const Product = require('../../models/product')
 
+/* ------------------------------- ADD PRODUCT ------------------------------ */
 exports.indexAddProduct = (req, res, next) => {
     res.render('admin/add-product', {
         rName: 'adminAddProduct',
         title: 'Add Product'
     })
 }
-
 exports.postAddProduct = (req, res, next) => {
     const product = new Product(req.body.product, req.body.price)
     product.save()
-    
-    res.redirect('/')
+    res.redirect('/admin/list-product')
 }
 
-exports.getProduct = (req, res, next) => {
+/* ------------------------------ LIST PRODUCT ------------------------------ */
+exports.indexListProduct = (req, res, next) => {
     Product.fetchAll(productData => {
-        res.render('frontend/index', {
-            rName: 'frontShop',
+        res.render('admin/list-product', {
+            rName: 'adminListProduct',
             products: productData,
-            title: 'Shop',
+            title: 'List Product',
             hasProducts: productData.length > 0 ? true : false // Needed for handlebars template
         })
     })

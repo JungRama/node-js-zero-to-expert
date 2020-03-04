@@ -177,7 +177,8 @@
 .header-content {
   margin-bottom: 40px; }
 
-.navbar-item:hover {
+.navbar-item:hover,
+.navbar-link:hover {
   color: #00d1b2 !important; }
 
 .navbar-item.active {
