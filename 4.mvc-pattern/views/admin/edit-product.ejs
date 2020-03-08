@@ -5,7 +5,7 @@
             <div class="field">
                 <label class="label">Product Image</label>
                 <div class="control">
-                    <input class="input" type="url" name="image" placeholder="www.google.com/images/1.jpg" required>
+                    <input class="input" type="url" name="image" placeholder="www.google.com/images/1.jpg" required value="<%= product.image %> ">
                 </div>
             </div>
 
@@ -13,7 +13,7 @@
             <div class="field">
                 <label class="label">Product Name</label>
                 <div class="control">
-                    <input class="input" type="text" name="product" placeholder="eg. Macbook Pro 2019" required>
+                    <input class="input" type="text" name="product" placeholder="eg. Macbook Pro 2019" required value="<%= product.title %> ">
                 </div>
             </div>
 
@@ -22,7 +22,7 @@
 
                 <div class="field">
                     <p class="control has-icons-left has-icons-right">
-                        <input class="input" name="price" type="number" placeholder="eg. 100000" required>
+                        <input class="input" name="price" type="text" placeholder="eg. 100000" required value="<%= product.price %>">
                         <span class="icon is-small is-left">
                             RP
                         </span>

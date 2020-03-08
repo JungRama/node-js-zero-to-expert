@@ -5,10 +5,10 @@
         <div class="row">
             <% for(let product of products){ %>
                 <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card">
+                    <div class="card" style="margin-bottom: 30px;">
                         <div class="card-image">
                             <figure class="image is-4by3">
-                                <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
+                                <img src="<%= product.image %>" alt="Placeholder image">
                             </figure>
                         </div>
                         <div class="card-content">
@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <footer class="card-footer">
-                            <a href="#" class="card-footer-item">Edit</a>
+                            <a href="/admin/product/<%= product.id %>" class="card-footer-item">Edit</a>
                             <a href="#" class="card-footer-item">Delete</a>
                         </footer>
                     </div>
