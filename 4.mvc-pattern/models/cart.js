@@ -38,8 +38,38 @@ module.exports = class Cart {
         cart.totalPrice = parseInt(cart.totalPrice) + parseInt(productPrice)
 
         fs.writeFile(filePath, JSON.stringify(cart), err => {
-            console.log(err);
+            if(err){
+                return
+            }
         })
       })
   }
+
+  static getAllCart(callback){
+    fs.readFile(filePath, (err, fileContent) => {
+        callback(JSON.parse(fileContent))
+    });
+  }
+
+  static delete(id, price) {
+      fs.readFile(filePath, (err, fileContent) => {
+          if(err) {
+              return
+          }
+          const updateCart = { ...JSON.parse(fileContent) }
+          const product = updateCart.products.find(product => product.id == id)
+          const productQty = product.qty
+
+          updateCart.products = updateCart.products.filter(
+              product => product.id != id
+          )
+
+          updateCart.totalPrice = updateCart.totalPrice - price * productQty
+
+          fs.writeFile(filePath, JSON.stringify(updateCart), err => {
+             console.log(err);
+          })
+      })
+  }
 };
+  

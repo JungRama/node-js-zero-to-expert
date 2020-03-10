@@ -1,10 +1,12 @@
 const Cart = require('../../models/cart')
 
 exports.getCart = ( req, res, next ) => {
-    // Cart.fetchAll
-    res.render('frontend/cart', {
-        rName: 'frontCart',
-        title: 'Cart',
+    Cart.getAllCart(cart =>{
+        res.render('frontend/cart', {
+            rName: 'frontCart',
+            title: 'Cart',
+            cartData : cart
+        })
     })
 }
 

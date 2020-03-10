@@ -7,9 +7,24 @@ exports.indexAddProduct = (req, res, next) => {
         title: 'Add Product'
     })
 }
+
+/* ------------------------------ ADD PRODUCT ------------------------------ */
 exports.postAddProduct = (req, res, next) => {
-    const product = new Product(req.body.image, req.body.product, parseInt(req.body.price))
+    const product = new Product(null, req.body.image, req.body.product, parseInt(req.body.price))
     product.save()
+    res.redirect('/admin/product')
+}
+
+/* ------------------------------ EDIT PRODUCT ------------------------------ */
+exports.postEditProduct = (req, res, next) => {
+    const product = new Product(req.body.id, req.body.image, req.body.product, parseInt(req.body.price))
+    product.save()
+    res.redirect('/admin/product')
+}
+
+/* ------------------------------ DELETE PRODUCT ------------------------------ */
+exports.deleteProduct = (req, res, next) => {
+    Product.delete(req.body.id)
     res.redirect('/admin/product')
 }
 
@@ -25,7 +40,8 @@ exports.indexListProduct = (req, res, next) => {
     })
 }
 
-/* ------------------------------ LIST PRODUCT ------------------------------ */
+
+/* ------------------------------ DETAIL PRODUCT ------------------------------ */
 exports.getProductDetail = (req, res, next) => {
     const id = req.params.productID
     Product.findByID(id, productData => {

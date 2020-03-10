@@ -1,7 +1,9 @@
 <%- include ('../includes/header.ejs') %>
     <div class="container">
-        <form action="/admin/add-product" method="POST">
+        <form action="/admin/edit-product" method="POST">
 
+            <input type="hidden" name="id" value="<%= product.id %>">
+             
             <div class="field">
                 <label class="label">Product Image</label>
                 <div class="control">
