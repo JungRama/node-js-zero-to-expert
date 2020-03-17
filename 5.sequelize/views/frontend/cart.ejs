@@ -1,0 +1,24 @@
+<%- include ('../includes/header.ejs') %>
+<div class="container">
+    <table class="table" style="width: 100%;">
+        <thead>
+            <th>Product ID</th>
+            <th>Qty</th>
+        </thead>
+        <tbody>
+            <% for( let cart of cartData.products ) { %>
+                <tr>
+                    <td><%= cart.id %></td>
+                    <td><%= cart.qty %></td>
+                </tr>
+            <% } %>
+            <tr>
+                <td colspan="2">
+                    Rp. <%= cartData.totalPrice %> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<%- include ('../includes/footer.ejs') %> 
+

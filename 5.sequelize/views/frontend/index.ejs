@@ -1,0 +1,41 @@
+<%- include ('../includes/header.ejs') %>
+<div class="container">
+    <% if (products.length > 0) { %>
+        <h3 style="font-size: 24px;font-weight:bold; margin-bottom: 15px;">List of Product</h3>
+        <div class="row">
+            <% for(let product of products){ %>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card" style="margin-bottom: 30px;">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img src="<%= product.image %>" alt="Placeholder image">
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4"><%= product.title %></p>
+                                    <p class="subtitle is-6"><%= 'Rp.' + product.price %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <footer> -->
+                            <form action="/cart" method="POST">
+                                <input type="hidden" name="id" value="<%= product.id %> ">
+                                <input type="hidden" name="productPrice" value="<%= product.price %> ">
+                                <button type="submit" 
+                                style="width: 100%; display: block; height: 100%"
+                                class="button card-footer-item">Add To Cart</button>
+                            </form>
+                        <!-- </footer> -->
+                    </div>
+                </div>
+                <!-- <li><%=product.title%> : <%=product.price%></li> -->
+            <% } %>
+        </div>
+    <% } else { %>
+        <p>No Product</p>
+    <% } %>
+</div>
+<%- include ('../includes/footer.ejs') %> 
+
