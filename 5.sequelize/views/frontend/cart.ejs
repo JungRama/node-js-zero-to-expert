@@ -1,24 +1,44 @@
 <%- include ('../includes/header.ejs') %>
 <div class="container">
+    <% if (cartData.length > 0) { %>
     <table class="table" style="width: 100%;">
         <thead>
-            <th>Product ID</th>
+            <th>Product</th>
             <th>Qty</th>
+            <th>Action</th>
         </thead>
         <tbody>
-            <% for( let cart of cartData.products ) { %>
+            <% cartData.forEach(cart => { %>
                 <tr>
-                    <td><%= cart.id %></td>
-                    <td><%= cart.qty %></td>
+                    <td><%= cart.title %></td>
+                    <td><%= cart.cart_item.quantity %> </td>
+                    <td>
+                        <form action="/cart/delete" method="post">
+                            <input type="hidden" name="id" value="<%= cart.id %> ">
+                            <button class="button is-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
-            <% } %>
             <tr>
-                <td colspan="2">
-                    Rp. <%= cartData.totalPrice %> 
+                <td colspan="3">
+                    Rp. 
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <form action="/order" method="post">
+                        <input type="hidden" name="id" value="<%= cart.id %> ">
+                        <button class="button is-primary">Order</button>
+                    </form>
                 </td>
             </tr>
         </tbody>
     </table>
+    <% }) %>
+
+    <% } else { %>
+        <h2 class="text-center">No Product In Cart</h2>
+    <% } %> 
 </div>
 <%- include ('../includes/footer.ejs') %> 
 

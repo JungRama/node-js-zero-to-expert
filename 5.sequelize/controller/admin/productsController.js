@@ -11,12 +11,14 @@ exports.indexAddProduct = (req, res, next) => {
 /* ------------------------------ ADD PRODUCT ------------------------------ */
 exports.postAddProduct = (req, res, next) => {
     const request = req.body
-    Product.create({
+
+    req.user.createProduct({ // POST AUTOMATICALY ADD USER ID 
         title: request.title,
         description: request.description,
         price: request.price,
-        image: request.image
-    }).then(res => {
+        image: request.image,
+    })
+    .then(res => {
         res.redirect('/admin/add-product')
     }).catch(err => {
         res.redirect('/admin/add-product')
@@ -59,7 +61,7 @@ exports.deleteProduct = (req, res, next) => {
 
 /* ------------------------------ LIST PRODUCT ------------------------------ */
 exports.indexListProduct = (req, res, next) => {
-    Product.findAll()
+    req.user.getProducts() // GET ONLY THIS USER PRODUCT
     .then(productData => {
         res.render('admin/list-product', {
             rName: 'adminListProduct',
