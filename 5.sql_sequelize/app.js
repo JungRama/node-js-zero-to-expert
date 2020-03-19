@@ -75,8 +75,8 @@ app.use((req, res, next) => {
 })
 
 sequelize
-    .sync({ force: true })
-    // .sync()
+    // .sync({ force: true })
+    .sync()
     .then(result => {
         return User.findByPk(1)
     })
@@ -85,13 +85,12 @@ sequelize
             return User.create({ 
                 name: 'Jung Rama', 
                 email: 'jungrama.id@gmail.com' 
+            }).then(user => {
+                user.createCart()
             })
         }
-        return userData
     })
-    .then(user => {
-        user.createCart()
-    }).then(cart => {
+    .then(() => {
         app.listen(3030)  
     })
     .catch(err => {
