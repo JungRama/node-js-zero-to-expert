@@ -1,0 +1,26 @@
+<%- include ('../includes/header.ejs') %>
+<div class="container">
+    <% if (orders.length > 0) { %>
+        <% orders.forEach(order => { %>
+            <h2 style="font-size: 24px; font-weight: bold;">Order # <%= order.id %> </h2>
+            <table class="table" style="width: 100%;">
+                <thead>
+                    <th>Product</th>
+                    <th>Qty</th>
+                </thead>
+                <tbody>
+                    <% order.products.forEach(item => { %>
+                    <tr>
+                        <td><%= item.title %></td>
+                        <td><%= inspect(item.order_item.quantity) %></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% }) %>
+    <% } else { %>
+
+    <% } %>
+</div>
+<%- include ('../includes/footer.ejs') %> 
+
