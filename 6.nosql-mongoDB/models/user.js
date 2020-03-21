@@ -19,10 +19,23 @@ class User {
             console.log(err);
         })
     }
- 
-    addCart(product) {
+
+    static getById(id) {
+        return getDb().collection('users')
+        .findOne({ _id: new mongodb.ObjectId(id) })
+        .then(user => {
+            return user
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    /* ---------------------------------- CART ---------------------------------- */
+
+    addCart(productId) {
         const cartProductIndex = this.cart.items.findIndex(item => {
-            return item.productId.toString() == product._id.toString()
+            return item.productId.toString() == productId.toString()
         })
         
         let newQuantity = 1
@@ -33,7 +46,7 @@ class User {
             updatedCart[cartProductIndex].quantity = newQuantity 
         }else{
             updatedCart.push({
-                productId: product._id,
+                productId: productId,
                 quantity: 1
             })
         }
@@ -48,14 +61,52 @@ class User {
         )
     }
 
-    static getById(id) {
-        return getDb().collection('users')
-        .findOne({ _id: new mongodb.ObjectId(id) })
-        .then(user => {
-            return user
+    getCart() {
+        const productsId = this.cart.items.map(item =>{
+            return new mongodb.ObjectId(item.productId)
         })
-        .catch(err => {
-            console.log(err);
+
+        return getDb().collection('products').find({_id: {
+            $in: productsId
+        }})
+        .toArray()
+        .then(products => {
+            return products.map(product => {
+                return {
+                    ...product,
+                    quantity: this.cart.items.find(item => {
+                        return product._id.toString() == item.productId.toString()
+                    }).quantity
+                }
+            })
+        })
+    }
+
+    deleteCart(productId) {
+        const updatedCart = this.cart.items.filter(item => {
+            return item.productId.toString() != productId.toString()
+        })
+        
+        return getDb().collection('users').updateOne(
+            {_id: new mongodb.ObjectId(this._id)},
+            {$set: {
+                cart: {items: updatedCart}
+            }}
+        )
+    }
+
+    /* ---------------------------------- ORDER --------------------------------- */
+    addOrder() {
+        return getDb().collection('orders')
+        .insertOne(this.cart)
+        .then(result => {
+            this.cart = {items: []}
+            getDb.collection('user').updateOne(
+                {_id: new mongodb.ObjectId(this._id)},
+                {$set: {
+                    cart: {items: [] }
+                }}
+            )
         })
     }
 }
