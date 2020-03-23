@@ -11,14 +11,13 @@ exports.indexAddProduct = (req, res, next) => {
 /* ------------------------------ ADD PRODUCT ------------------------------ */
 exports.postAddProduct = (req, res, next) => {
     const request = req.body
-    const product = new Product(
-        null,
-        request.title,
-        request.description,
-        request.price,
-        request.image,
-        req.user._id
-    )
+    const product = new Product({
+        title: request.title,
+        description: request.description,
+        price: request.price,
+        image: request.image,
+        userId: req.user._id
+    })
     product.save()
     .then(response => {
         res.redirect('/admin/add-product')
@@ -32,15 +31,21 @@ exports.postAddProduct = (req, res, next) => {
 exports.postEditProduct = (req, res, next) => {
     const request = req.body
 
-    const product = new Product(
-        request.id,
-        request.title,
-        request.description,
-        request.price,
-        request.image,
-        req.user._id
-    )
-    product.save()
+    const product = new Product({
+        title: request.title,
+        description: request.description,
+        price: request.price,
+        image: request.image
+    })
+    Product.findById(request.id)
+    .then(product => {
+        product.title = request.title,
+        product.description = request.description,
+        product.price = request.price,
+        product.image = request.image
+
+        return product.save()
+    })
     .then(response => {
         res.redirect('/admin/product')
     })
@@ -51,7 +56,7 @@ exports.postEditProduct = (req, res, next) => {
 
 /* ------------------------------ DELETE PRODUCT ------------------------------ */
 exports.deleteProduct = (req, res, next) => {
-    Product.deleteById(req.body.id)
+    Product.findByIdAndRemove(req.body.id)
     .then(() => {
         res.redirect('/admin/product')
     })
@@ -62,23 +67,23 @@ exports.deleteProduct = (req, res, next) => {
 
 /* ------------------------------ LIST PRODUCT ------------------------------ */
 exports.indexListProduct = (req, res, next) => {
-    Product.fetchAll()
+    Product.find()
+    .populate('userId')
     .then(productData => {
+        console.log(productData);
+        
         res.render('admin/list-product', {
             rName: 'adminListProduct',
             products: productData,
             title: 'List Product',
         })
     })
-    .catch(err => {
-        console.log(err);
-    })
 }
 
 /* ------------------------------ DETAIL PRODUCT ------------------------------ */
 exports.getProductDetail = (req, res, next) => {
     const id = req.params.productID
-    Product.getById(id)
+    Product.findById(id)
     .then(productData => {
         res.render('admin/edit-product', {
             rName: 'adminListProduct',

@@ -1,15 +1,12 @@
 const Product = require('../../models/product')
 
 exports.getProduct = (req, res, next) => {
-    Product.fetchAll()
+    Product.find()
     .then(productData => {
         res.render('frontend/index', {
-            rName: 'frontShop',
+            rName: 'adminListProduct',
             products: productData,
-            title: 'Shop',
+            title: 'List Product',
         })
-    })
-    .catch(err => {
-        console.log(err);
     })
 }

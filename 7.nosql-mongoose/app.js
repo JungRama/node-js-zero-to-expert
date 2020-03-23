@@ -12,7 +12,6 @@ const routesFront   = require('./routes/frontend')
 /* --------------------------------- END ROUTER --------------------------------- */
 
 /* --------------------------------- HELPERS -------------------------------- */
-const monggoConnect = require('./helpers/database').monggoConnect
 require('dotenv').config()
 /* --------------------------------- END HELPERS -------------------------------- */
 
@@ -23,15 +22,14 @@ const User          = require('./models/user')
 const app           = express()
 
 app.use((req, res, next) => {
-    // User.getById("5e734788a7a5fc13e68c7b36")
-    // .then(user => {
-    //     req.user = new User(user._id, user.username, user.email, user.cart);
-    //     next()
-    // })
-    // .catch(err => {
-    //     console.log(err)
-    // })
-    next()
+    User.findById("5e78b63be172c30e23e5b7d7")
+    .then(user => {
+        req.user = user
+        next()
+    })
+    .catch(err => {
+        console.log(err)
+    })
 })
 
 // USING SASS
@@ -49,8 +47,8 @@ app.use(bodyParser.urlencoded({extended : false}))
 app.use(express.static(path.join(__dirname, 'public')))
 app.locals.inspect = require('util').inspect;
 
-// app.use(routesFront) // ROUTER FOR FRONT
-// app.use('/admin', routesAdmin.router) // ROUTER FOR ADMIN
+app.use(routesFront) // ROUTER FOR FRONT
+app.use('/admin', routesAdmin.router) // ROUTER FOR ADMIN
 
 app.use((req, res, next) => {
     res.status(404).render('static/404', {
@@ -60,6 +58,22 @@ app.use((req, res, next) => {
 })
 
 mongoose.connect(process.env.DB_ACCESS).then(res => {
+    User.findOne().then(user => {
+        if(!user){
+            const user = new User({
+                name: 'Jung Rama',
+                email: 'jungrama.id@gmail.com',
+                cart: {
+                    items: []
+                }
+            })
+            user.save()
+            .then(() =>{
+                console.log('Success Create User');
+            })
+        }
+    })
+    
     app.listen(3030)
 }).catch(err => { 
     console.log(err);
