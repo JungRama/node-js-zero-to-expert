@@ -1,19 +1,21 @@
 const User = require('../../models/user')
 
 exports.getCart = ( req, res, next ) => {
-    req.user.getCart()
+    req.user
+    .populate('cart.items.productId')
+    .execPopulate()
     .then(products => {
         res.render('frontend/cart', {
             rName: 'frontCart',
             title: 'Cart',
-            cartData : products
+            cartData : products.cart.items
         })
     })
 }
 
 exports.addCart = ( req, res, next ) => {
     const productId = req.body.productId
-     req.user.addCart(productId)
+     req.user.addToCart(productId)
     .then(result => {
         res.redirect('/')
     })

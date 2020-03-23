@@ -12,10 +12,10 @@
         <tbody>
             <% cartData.forEach(cart => { %>
                 <tr>
-                    <td><%= cart.title %></td>
+                    <td><%= cart.productId.title %></td>
                     <td><%= cart.quantity %> </td>
-                    <td><%= cart.price %> </td>
-                    <td><%= cart.quantity * cart.price %> </td>
+                    <td><%= cart.productId.price %> </td>
+                    <td><%= cart.quantity * cart.productId.price %> </td>
                     <td>
                         <form action="/cart/delete" method="post">
                             <input type="hidden" name="id" value="<%= cart._id %>">
