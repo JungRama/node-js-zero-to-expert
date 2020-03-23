@@ -2,8 +2,8 @@
 const path          = require('path')
 const express       = require('express')
 const bodyParser    = require('body-parser')
-const { addVarDumpViewHelper } = require('express-var-dump');
-var sassMiddleware  = require('node-sass-middleware');
+const sassMiddleware = require('node-sass-middleware');
+const mongoose      = require('mongoose')
 /* --------------------------------- END LIBRARY -------------------------------- */
 
 /* --------------------------------- ROUTER --------------------------------- */
@@ -22,17 +22,16 @@ const User          = require('./models/user')
 
 const app           = express()
 
-app.use(addVarDumpViewHelper);
-
 app.use((req, res, next) => {
-    User.getById("5e734788a7a5fc13e68c7b36")
-    .then(user => {
-        req.user = new User(user._id, user.username, user.email, user.cart);
-        next()
-    })
-    .catch(err => {
-        console.log(err)
-    })
+    // User.getById("5e734788a7a5fc13e68c7b36")
+    // .then(user => {
+    //     req.user = new User(user._id, user.username, user.email, user.cart);
+    //     next()
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    // })
+    next()
 })
 
 // USING SASS
@@ -50,8 +49,8 @@ app.use(bodyParser.urlencoded({extended : false}))
 app.use(express.static(path.join(__dirname, 'public')))
 app.locals.inspect = require('util').inspect;
 
-app.use(routesFront) // ROUTER FOR FRONT
-app.use('/admin', routesAdmin.router) // ROUTER FOR ADMIN
+// app.use(routesFront) // ROUTER FOR FRONT
+// app.use('/admin', routesAdmin.router) // ROUTER FOR ADMIN
 
 app.use((req, res, next) => {
     res.status(404).render('static/404', {
@@ -60,6 +59,8 @@ app.use((req, res, next) => {
     })
 })
 
-monggoConnect(() =>{
+mongoose.connect(process.env.DB_ACCESS).then(res => {
     app.listen(3030)
+}).catch(err => { 
+    console.log(err);
 })
