@@ -4,7 +4,7 @@ exports.getProduct = (req, res, next) => {
     Product.find()
     .then(productData => {
         res.render('frontend/index', {
-            rName: 'adminListProduct',
+            rName: 'frontShop',
             products: productData,
             title: 'List Product',
         })
