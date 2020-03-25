@@ -1,0 +1,23 @@
+{
+  "name": "1.-basics",
+  "version": "1.0.0",
+  "description": "node js basics",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.0.2",
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.5",
+    "node-sass-middleware": "^0.11.0",
+    "nodemon": "^2.0.2"
+  }
+}
