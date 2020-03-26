@@ -9,6 +9,7 @@ const mongoose      = require('mongoose')
 /* --------------------------------- ROUTER --------------------------------- */
 const routesAdmin   = require('./routes/admin') 
 const routesFront   = require('./routes/frontend')
+const routesAuth    = require('./routes/auth')
 /* --------------------------------- END ROUTER --------------------------------- */
 
 /* --------------------------------- HELPERS -------------------------------- */
@@ -48,6 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.locals.inspect = require('util').inspect;
 
 app.use(routesFront) // ROUTER FOR FRONT
+app.use(routesAuth) // ROUTER FOR FRONT
 app.use('/admin', routesAdmin.router) // ROUTER FOR ADMIN
 
 app.use((req, res, next) => {
