@@ -1,4 +1,4 @@
-const Product = require('../../models/product')
+const Product = require('../models/product')
 
 /* ------------------------------- ADD PRODUCT ------------------------------ */
 exports.indexAddProduct = (req, res, next) => {
@@ -65,8 +65,8 @@ exports.deleteProduct = (req, res, next) => {
     })
 }
 
-/* ------------------------------ LIST PRODUCT ------------------------------ */
-exports.indexListProduct = (req, res, next) => {
+/* ------------------------------ LIST PRODUCT USER ------------------------------ */
+exports.listProductUser = (req, res, next) => {
     Product.find()
     .populate('userId')
     .then(productData => {
@@ -89,6 +89,18 @@ exports.getProductDetail = (req, res, next) => {
             rName: 'adminListProduct',
             product: productData,
             title: 'Edit Product',
+        })
+    })
+}
+
+/* -------------------------- FRONTEND LIST PRODUCT ------------------------- */
+exports.getAllProduct = (req, res, next) => {
+    Product.find()
+    .then(productData => {
+        res.render('frontend/index', {
+            rName: 'frontShop',
+            products: productData,
+            title: 'List Product',
         })
     })
 }

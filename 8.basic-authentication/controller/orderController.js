@@ -1,4 +1,4 @@
-const Order = require('../../models/order')
+const Order = require('../models/order')
 
 exports.addOrder = ( req, res, next ) => {
     const order = new Order({

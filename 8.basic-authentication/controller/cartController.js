@@ -1,5 +1,3 @@
-const User = require('../../models/user')
-
 exports.getCart = ( req, res, next ) => {
     req.user
     .populate('cart.items.productId')
