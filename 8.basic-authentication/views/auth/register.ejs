@@ -1,6 +1,23 @@
 <%- include ('../includes/header.ejs') %>
     <div class="container">
-        <form action="/admin/add-product" method="POST">
+        <% if (message.length > 0) { %>
+            <% message.forEach(msg => { %>
+                <div class="notification is-light <%= msg.type %> ">
+                    <button class="delete"></button>
+                    <%= msg.text %> 
+                </div>
+            <% }) %>
+        <% } %>
+
+        <form action="/register" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <div class="field">
+                <label class="label">Name</label>
+                <div class="control">
+                    <input class="input" type="text" name="name" required>
+                </div>
+            </div>
 
             <div class="field">
                 <label class="label">Email</label>
@@ -26,7 +43,7 @@
             <button class="button is-success" type="submit">
                 <span>Register</span>
                 <span class="icon is-small">
-                    <i class="fas fa-check"></i>
+                    <i class="fas fa-arrow-right"></i>
                 </span>
             </button>
         </form>

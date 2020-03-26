@@ -1,6 +1,7 @@
 <%- include ('../includes/header.ejs') %>
     <div class="container">
         <form action="/admin/edit-product" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
             <input type="hidden" name="id" value="<%= product._id %>">
              
