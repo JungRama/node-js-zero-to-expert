@@ -1,5 +1,16 @@
 const User = require('../models/user')
+
 const bcrypt = require('bcrypt')
+const nodemailer = require('nodemailer')
+const sendGridTransport = require('nodemailer-sendgrid-transport')
+
+const transporter = nodemailer.createTransport(
+    sendGridTransport({
+        auth: {
+            api_key: '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'
+        }
+    })
+)
 
 exports.getLogin = (req, res, next) => {
     res.render('auth/login', {
@@ -75,6 +86,13 @@ exports.postRegister = (req, res, next) => {
 
             user.save()
             .then(response => {
+                transporter.sendMail({
+                    to: response.email,
+                    from: 'jungrama.id@gmail.com',
+                    subject: 'Register Success!',
+                    html: '<h1>You successfully register!</h1>'
+                })
+
                 req.flash('message', {
                     type: 'is-success',
                     text: 'Success create account, Login to continue'
