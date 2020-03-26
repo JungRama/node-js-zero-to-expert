@@ -1,6 +1,18 @@
 <%- include ('../includes/header.ejs') %>
     <div class="container">
-        <form action="/admin/add-product" method="POST">
+        
+        <% if (message.length > 0) { %>
+            <% message.forEach(msg => { %>
+                <div class="notification is-light <%= msg.type %> ">
+                    <button class="delete"></button>
+                    <%= msg.text %> 
+                </div>
+            <% }) %>
+        <% } %>
+
+
+        <form action="/login" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
             <div class="field">
                 <label class="label">Email</label>
@@ -15,7 +27,7 @@
                     <input class="input" type="password" name="password" required>
                 </div>
             </div>
-
+            
             <button class="button is-success" type="submit">
                 <span>Login</span>
                 <span class="icon is-small">

@@ -2,6 +2,9 @@ const Product = require('../models/product')
 
 /* ------------------------------- ADD PRODUCT ------------------------------ */
 exports.indexAddProduct = (req, res, next) => {
+    if(!req.session.isLoggedIn){
+        res.redirect('/login')
+    }
     res.render('admin/add-product', {
         rName: 'adminAddProduct',
         title: 'Add Product'
@@ -68,7 +71,7 @@ exports.deleteProduct = (req, res, next) => {
 /* ------------------------------ LIST PRODUCT USER ------------------------------ */
 exports.listProductUser = (req, res, next) => {
     Product.find()
-    .populate('userId')
+    .where({userId: req.user._id})
     .then(productData => {
         console.log(productData);
         
@@ -96,6 +99,7 @@ exports.getProductDetail = (req, res, next) => {
 /* -------------------------- FRONTEND LIST PRODUCT ------------------------- */
 exports.getAllProduct = (req, res, next) => {
     Product.find()
+    .populate('userId')
     .then(productData => {
         res.render('frontend/index', {
             rName: 'frontShop',

@@ -14,13 +14,15 @@
                         <div class="card-content">
                             <div class="media">
                                 <div class="media-content">
-                                    <p class="title is-4"><%= product.title %></p>
+                                    <p class="title is-5"><%= product.title %></p>
                                     <p class="subtitle is-6"><%= 'Rp.' + product.price %></p>
+                                    <p class="subtitle" style="font-size: 12px;"><%= 'Product by ' + product.userId.name %></p>
                                 </div>
                             </div>
                         </div>
                         <!-- <footer> -->
                             <form action="/cart" method="POST">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <input type="hidden" name="productId" value="<%= product._id %>">
                                 <button type="submit" 
                                 style="width: 100%; display: block; height: 100%"

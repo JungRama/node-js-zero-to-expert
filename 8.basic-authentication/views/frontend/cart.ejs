@@ -1,5 +1,6 @@
 <%- include ('../includes/header.ejs') %>
 <div class="container">
+
     <% if (cartData.length > 0) { %>
     <table class="table" style="width: 100%;">
         <thead>
@@ -18,6 +19,7 @@
                     <td><%= cart.quantity * cart.productId.price %> </td>
                     <td>
                         <form action="/cart/delete" method="post">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                             <input type="hidden" name="id" value="<%= cart._id %>">
                             <button class="button is-danger">Delete</button>
                         </form>
@@ -27,6 +29,7 @@
             <tr>
                 <td colspan="3">
                     <form action="/order" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                         <button class="button is-primary">Order</button>
                     </form>
                 </td>
