@@ -8,6 +8,8 @@ exports.addOrder = ( req, res, next ) => {
     
     order.save()
     .then(result => {
+        console.log(req.user);
+        
         req.user.cart.items = []
         req.user.save()
         res.redirect('/cart')
@@ -22,8 +24,6 @@ exports.getOrder = (req, res, next) => {
     .populate('items.productId')
     .where('userId').equals(req.user._id)
     .then(orders => {
-        console.log({o : orders});
-        
         res.render('frontend/order', {
             rName: 'frontOrder',
             orders: orders,

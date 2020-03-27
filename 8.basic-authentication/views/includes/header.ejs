@@ -55,9 +55,12 @@
                     <div class="navbar-item">
                         <div class="buttons">
                             <% if (isAlreadyLogin) { %>
-                                <a class="button is-primary" href="/register">
-                                    <strong>Logout</strong>
-                                </a>
+                                <form action="/logout" method="post">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <button class="button is-primary" href="/register">
+                                        <strong>Logout</strong>
+                                    </button>
+                                </form>
                             <% } else { %>
                                 <a class="button is-primary" href="/register">
                                     <strong>Register</strong>
