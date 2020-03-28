@@ -40,8 +40,12 @@ exports.postEditProduct = (req, res, next) => {
         price: request.price,
         image: request.image
     })
-    Product.findById(request.id)
+    Product.findOne({_id: request.id, userId: req.user._id})
     .then(product => {
+        if(productData.userId.toString() != req.user._id.toString()){
+            res.redirect('/admin/product')
+        }
+
         product.title = request.title,
         product.description = request.description,
         product.price = request.price,
@@ -59,7 +63,7 @@ exports.postEditProduct = (req, res, next) => {
 
 /* ------------------------------ DELETE PRODUCT ------------------------------ */
 exports.deleteProduct = (req, res, next) => {
-    Product.findByIdAndRemove(req.body.id)
+    Product.deleteOne({_id: req.body.id, userId: req.user._id})
     .then(() => {
         res.redirect('/admin/product')
     })
@@ -73,8 +77,6 @@ exports.listProductUser = (req, res, next) => {
     Product.find()
     .where({userId: req.user._id})
     .then(productData => {
-        console.log(productData);
-        
         res.render('admin/list-product', {
             rName: 'adminListProduct',
             products: productData,
@@ -88,6 +90,9 @@ exports.getProductDetail = (req, res, next) => {
     const id = req.params.productID
     Product.findById(id)
     .then(productData => {
+        if(productData.userId.toString() != req.user._id.toString()){
+            res.redirect('/admin/product')
+        }
         res.render('admin/edit-product', {
             rName: 'adminListProduct',
             product: productData,

@@ -91,13 +91,6 @@ exports.postRegister = (req, res, next) => {
 
             user.save()
             .then(response => {
-                transporter.sendMail({
-                    to: response.email,
-                    from: 'jungrama.id@gmail.com',
-                    subject: 'Register Success!',
-                    html: '<h1>You successfully register!</h1>'
-                })
-
                 req.flash('message', {
                     type: 'is-success',
                     text: 'Success create account, Login to continue'
@@ -152,30 +145,18 @@ exports.postResetPassword = (req, res, next) => {
                 user.save()
                 .then(result => {         
                     
+                    req.flash('message', {
+                        type: 'is-success',
+                        text: 'Check your email to change your password'
+                    })
+                    res.redirect('/reset-password') 
+
                     transporter.sendMail({
-                        to: 'jungrama.id@gmail.com',
+                        to: result.email,
                         from: 'jungrama.id@gmail.com',
-                        subject: 'Register Success!',
-                        html: '<h1>You successfully register!</h1>'
-                    }).then(res => {
-                        console.log(res);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    })
-
-                    // req.flash('message', {
-                    //     type: 'is-success',
-                    //     text: 'Check your email to change your password'
-                    // })
-                    // res.redirect('/reset-password') 
-
-                    // transporter.sendMail({
-                    //     to: result.email,
-                    //     from: 'jungrama.id@gmail.com',
-                    //     subject: 'Reset Password',
-                    //     html: `<h1>Change your password <a href="${process.env.baseURL}/reset-password/${result.resetToken}">here</a></h1>`
-                    // }) 
+                        subject: 'Reset Password',
+                        html: `<h1>Change your password <a href="${process.env.baseURL}/reset-password/${result.resetToken}">here</a></h1>`
+                    }) 
                     
                 })
                 .catch(err => {
@@ -188,6 +169,70 @@ exports.postResetPassword = (req, res, next) => {
             }
         })
     })
+}
+
+/* ------------------------------ NEW PASSWORD ------------------------------ */
+exports.getNewPassword = (req, res, next) => {
+    const token = req.params.token
+
+    User.findOne({resetToken: token, resetTokenExpiration: {$gt: Date.now()}})
+    .then(user => {
+        if(user){
+            res.render('auth/new-password', {
+                rName: 'authNewPassword',
+                token: token,
+                title: 'Reset to new password',
+                message: req.flash('message')
+            });
+        }
+        else{
+            res.render('static/404', {
+                rName: '',
+                title: 'Page Not Founds'
+            })
+        }
+    })
+}
+
+exports.postNewPassword = (req, res, next) => {
+    const token = req.params.token
+    const request = req.body
+
+    if(request.password == request.confirm_password){
+        User.findOne({resetToken: token})
+        .then(user => {
+
+            return bcrypt.hash(request.password, 12)
+            .then(password => {
+                user.resetToken = null
+                user.resetTokenExpiration = null
+                user.password = password
+
+                return user.save()
+            })
+            
+        })
+        .then(result => {
+            req.flash('message', {
+                type: 'is-success',
+                text: "Success change your password"
+            })
+            res.redirect('/login') 
+        })
+        .catch(err => {
+            req.flash('message', {
+                type: 'is-danger',
+                text: JSON.stringify(err)
+            })
+            res.redirect(`/reset-password/${token}`) 
+        })
+    }else{
+        req.flash('message', {
+            type: 'is-danger',
+            text: "Password must be match"
+        })
+        res.redirect(`/reset-password/${token}`) 
+    }
 }
 
 /* --------------------------------- LOGOUT --------------------------------- */
