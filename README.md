@@ -7,5 +7,5 @@ __Link to course :__
 Some basic to open the project:
 ```
 npm install
-npm run starts
+npm run start
 ```
