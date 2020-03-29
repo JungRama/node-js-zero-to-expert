@@ -1,0 +1,17 @@
+
+@import './layout.scss';
+
+.header-nav-custom{
+    background-color: #f5f5f5 !important;
+    padding: 10px 0px;
+}
+.header-content{
+    margin-bottom: 40px;
+}
+.navbar-item:hover,
+.navbar-link:hover{
+    color: #00d1b2 !important;
+}
+.navbar-item.active{
+    color: #00d1b2;
+}
