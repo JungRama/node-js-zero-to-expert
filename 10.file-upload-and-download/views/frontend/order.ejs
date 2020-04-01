@@ -3,6 +3,7 @@
     <% if (orders.length > 0) { %>
         <% orders.forEach(order => { %>
             <h2 style="font-size: 24px; font-weight: bold;">Order # <%= order._id %> </h2>
+            <a href="order/invoice/<%= order._id %> ">Download Invoices</a>
             <table class="table" style="width: 100%;">
                 <thead>
                     <th>Product</th>

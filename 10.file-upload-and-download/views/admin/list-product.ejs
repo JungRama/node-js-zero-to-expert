@@ -8,7 +8,7 @@
                     <div class="card" style="margin-bottom: 30px;">
                         <div class="card-image">
                             <figure class="image is-4by3">
-                                <img src="<%= product.image %>" alt="Placeholder image">
+                                <img src="<%= process.env.baseURL+product.image %>" alt="Placeholder image">
                             </figure>
                         </div>
                         <div class="card-content">
@@ -16,7 +16,7 @@
                                 <div class="media-content">
                                     <p class="title is-5"><%= product.title %></p>
                                     <p class="subtitle is-6"><%= 'Rp.' + product.price %></p>
-                                    <p>Description : <%= product.description %> </p>
+                                    <p>Description : <%= product.description %> </p> 
                                 </div>
                             </div>
                         </div>
@@ -40,6 +40,8 @@
     <% } else { %>
         <p>No Product</p>
     <% } %>
+
+    <%- include('../includes/pagination.ejs') %> 
 </div>
 <%- include ('../includes/footer.ejs') %> 
 

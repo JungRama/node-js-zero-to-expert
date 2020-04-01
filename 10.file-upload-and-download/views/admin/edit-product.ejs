@@ -1,6 +1,6 @@
 <%- include ('../includes/header.ejs') %>
     <div class="container">
-        <form action="/admin/edit-product" method="POST">
+        <form action="/admin/edit-product" method="POST" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
             <input type="hidden" name="id" value="<%= product._id %>">
@@ -8,10 +8,9 @@
             <div class="field">
                 <label class="label">Product Image</label>
                 <div class="control">
-                    <input class="input" type="url" name="image" placeholder="www.google.com/images/1.jpg" required value="<%= product.image %>">
+                    <input type="file" name="image">
                 </div>
             </div>
-
 
             <div class="field">
                 <label class="label">Product Name</label>

@@ -8,6 +8,7 @@ const session       = require('express-session')
 const MongoSession  = require('connect-mongodb-session')(session)
 const crsf          = require('csurf')
 const flash         = require('connect-flash')
+const fileUpload    = require('express-fileupload');
 /* --------------------------------- END LIBRARY -------------------------------- */
 
 /* --------------------------------- ROUTER --------------------------------- */
@@ -36,10 +37,17 @@ app.use(sassMiddleware({
 // SET TEMPLATE FOR EJS
 app.set('view engine', 'ejs')
 // SET TEMPLATE FOLDER TO VIEWS
-app.set('views', 'views') 
+app.set('views', 'views')
 app.use(bodyParser.urlencoded({extended : false}))
-app.use(express.static(path.join(__dirname, 'public')))
-app.locals.inspect = require('util').inspect;
+app.use(express.static(path.join(__dirname, 'public'))) // SET STATIC FOLDER
+app.use("/images", express.static(path.join(__dirname, 'images'))) // SET STATIC FOLDER
+app.locals.inspect = require('util').inspect; // TO DEBUG LIKE VAR_DUMp
+
+// DEFINE FILE UPLOAD
+app.use(fileUpload({
+    createParentPath: true
+}));
+
 
 const csrfProtection = crsf()
 

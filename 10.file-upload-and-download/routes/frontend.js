@@ -15,6 +15,7 @@ router.post('/cart', authMiddleware, cartController.addCart)
 router.post('/cart/delete', authMiddleware, cartController.deleteCart)
 
 router.get('/order', authMiddleware, orderController.getOrder)
+router.get('/order/invoice/:id', authMiddleware, orderController.getInvoice)
 router.post('/order', authMiddleware, orderController.addOrder)
 
 module.exports = router
