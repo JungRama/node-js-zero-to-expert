@@ -1,0 +1,57 @@
+<%- include ('../includes/header.ejs') %>
+<div class="container">
+
+    <% if (cartData.length > 0) { %>
+    <table class="table" style="width: 100%;">
+        <thead>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <% cartData.forEach(cart => { %>
+                <tr>
+                    <td><%= cart.productId.title %></td>
+                    <td><%= cart.quantity %> </td>
+                    <td><%= cart.productId.price %> </td>
+                    <td><%= cart.quantity * cart.productId.price %> </td>
+                    <td>
+                        <form action="/cart/delete" method="post">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <input type="hidden" name="id" value="<%= cart._id %>">
+                            <button class="button is-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+            <tr>
+                <td><%= totalPrice %> </td>
+                <td colspan="2">
+                    <button class="button is-primary" id="order-button">Order</button>
+                    <script src="https://js.stripe.com/v3/"></script>
+                    <script>
+                        var stripe = Stripe('<%= process.env.STRIPE_PK %>');
+                        var orderButton = document.getElementById('order-button')
+                        orderButton.addEventListener('click', function() {
+                            stripe.redirectToCheckout({
+                                sessionId: '<%= sessionId %>'
+                            })
+                        })
+                    </script>
+                    <!-- <form action="/order" method="post">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button class="button is-primary">Order</button>
+                    </form> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <% } else { %>
+        <h2 class="text-center">No Product In Cart</h2>
+    <% } %> 
+</div>
+<%- include ('../includes/footer.ejs') %> 
+

@@ -1,0 +1,40 @@
+<%- include ('../includes/header.ejs') %>
+    <div class="container">
+        
+        <% if (message.length > 0) { %>
+            <% message.forEach(msg => { %>
+                <div class="notification is-light <%= msg.type %> ">
+                    <button class="delete"></button>
+                    <%= msg.text %> 
+                </div>
+            <% }) %>
+        <% } %> 
+
+        <form action="/login" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+            <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                    <input class="input" type="email" name="email" value="<%= oldForm.length > 0 ? oldForm[0].email : '' %>" required>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                    <input class="input" type="password" name="password" value="<%= oldForm.length > 0 ? oldForm[0].password : '' %>" required>
+                </div>
+            </div>
+            
+            <a href="/reset-password">Forgot password ?</a><br><br>
+
+            <button class="button is-success" type="submit">
+                <span>Login</span>
+                <span class="icon is-small">
+                    <i class="fas fa-check"></i>
+                </span>
+            </button>
+        </form>
+    </div>
+<%- include ('../includes/footer.ejs') %>

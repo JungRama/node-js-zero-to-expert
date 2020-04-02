@@ -1,0 +1,42 @@
+<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+    <% if (pagination.hasPrev) { %>
+        <a class="pagination-previous" href="<%= pagination.base %>?page=<%= pagination.prevPage %>">Previous</a>
+    <% } %>
+
+    <% if (pagination.hasNext) { %>
+        <a class="pagination-next" href="<%= pagination.base %>?page=<%= pagination.nextPage %>">Next page</a>
+    <% } %>
+
+    <ul class="pagination-list">
+        <% if (pagination.currentPage != 1) { %>
+            <li><a class="pagination-link" href="<%= pagination.base %>?page=1">1</a></li>
+        <% } %>
+
+        <% if (pagination.currentPage > 4) { %>
+            <li><span class="pagination-ellipsis">&hellip;</span></li>
+        <% } %>
+
+        <% if (pagination.hasPrev && pagination.currentPage > 3) { %>
+            <li><a class="pagination-link" href="<%= pagination.base %>?page=<%= pagination.prevPage - 1 %>"><%= pagination.prevPage - 1 %></a></li>
+        <% } %>
+        
+        <% if (pagination.hasPrev && pagination.currentPage > 2) { %>
+            <li><a class="pagination-link" href="<%= pagination.base %>?page=<%= pagination.prevPage %>"><%= pagination.prevPage %></a></li>
+        <% } %>
+
+        <li><a class="pagination-link is-current" href="<%= pagination.base %>?page=<%= pagination.currentPage %>"><%= pagination.currentPage %></a></li>
+        
+        <% if (pagination.hasNext) { %>
+            <li><a class="pagination-link" href="<%= pagination.base %>?page=<%= pagination.nextPage %>"><%= pagination.nextPage %></a></li>
+        <% } %>
+
+        <% if (pagination.hasNext && pagination.currentPage + 1 < pagination.lastPage) { %>
+            <li><a class="pagination-link" href="<%= pagination.base %>?page=<%= pagination.nextPage + 1 %>"><%= pagination.nextPage + 1 %></a></li>
+        <% } %>
+        
+        <% if (pagination.currentPage + 2 < pagination.lastPage) { %>
+            <li><span class="pagination-ellipsis">&hellip;</span></li>
+            <li><a class="pagination-link" href="<%= pagination.base %>?page=<%= pagination.lastPage %>"><%= pagination.lastPage %></a></li>
+        <% } %>
+    </ul>
+</nav>

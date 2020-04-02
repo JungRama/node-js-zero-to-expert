@@ -1,0 +1,31 @@
+<%- include ('../includes/header.ejs') %>
+<div class="container">
+    <% if (orders.length > 0) { %>
+        <% orders.forEach(order => { %>
+            <h2 style="font-size: 24px; font-weight: bold;">Order # <%= order._id %> </h2>
+            <a href="order/invoice/<%= order._id %> ">Download Invoices</a>
+            <table class="table" style="width: 100%;">
+                <thead>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Total</th>
+                </thead>
+                <tbody>
+                    <% order.items.forEach(item => { %>
+                    <tr>
+                        <td><%= item.productId.title %></td>
+                        <td><%= item.productId.price %></td>
+                        <td><%= item.quantity %></td>
+                        <td><%= item.quantity * item.productId.price %></td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% }) %>
+    <% } else { %>
+
+    <% } %>
+</div>
+<%- include ('../includes/footer.ejs') %> 
+
