@@ -19,6 +19,26 @@ exports.addCart = ( req, res, next ) => {
     })
 }
 
+exports.cartController = ( req, res, next ) => {
+    req.user
+    .populate('cart.items.productId')
+    .execPopulate()
+    .then(async products => {
+        let totalPrice = 0
+        
+        await products.cart.items.forEach(item => {
+            totalPrice += item.quantity * item.productId.price
+        });
+
+        res.render('frontend/checkout', {
+            rName: 'frontCart',
+            title: 'Cart',
+            cartData : products.cart.items,
+            totalPrice
+        })
+    })
+}
+
 exports.deleteCart = ( req, res, next ) => {
     req.user.deleteCart(req.body.id)
     .then(result => {
