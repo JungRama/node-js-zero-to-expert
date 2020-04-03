@@ -41,7 +41,6 @@ exports.getCheckout = ( req, res, next ) => {
     .populate('cart.items.productId')
     .execPopulate()
     .then(async products => {
-
         productsData = products.cart.items
         totalPrice = 0;
         
