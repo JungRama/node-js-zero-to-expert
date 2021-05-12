@@ -25,7 +25,7 @@
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.5",
     "node-sass-middleware": "^0.11.0",
-    "nodemailer": "^6.4.6",
+    "nodemailer": "^6.4.16",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.2",
     "stripe": "^8.38.0"
